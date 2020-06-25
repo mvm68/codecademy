@@ -78,8 +78,8 @@ def pick_a_card(bet):
         return 0
 
 def roulette(guess, bet):
-# I will use comments here, as this is going to be fairly complex code...
-# First, let's check for accuracy of `guess` and `bet`...
+    #I will use comments here, as this is going to be fairly complex code...
+    #First, let's check for accuracy of `guess` and `bet`...
     list_of_bets = ["Red", "Black", "Odd", "Even", "High", "Low", "Column 1", "Column 2", "Column 3", "Dozen 1", "Dozen 2", "Dozen 3", "Street 1", "Street 4", "Street 7", "Street 10", "Street 13", "Street 16", "Street 19", "Street 22", "Street 25", "Street 28", "Street 31", "Street 34", "Basket", "Snake"]
     error_message = """
     Roulette GuessError: Available bets are as follows...
@@ -99,8 +99,8 @@ def roulette(guess, bet):
     if guess not in range(0, 37) and guess not in list_of_bets:
         print(error_message)
         return 0
-# Once we have done our checks, lets begin the game...
-# Here we create our `result` and we inform the player of what is happening and what is the outcome...
+    # Once we have done our checks, lets begin the game...
+    # Here we create our `result` and we inform the player of what is happening and what is the outcome...
     print("Let's play roulette! Rien ne va plus!")
     print("The roulette turns... and turns... and turns...")
     result = random.randint(0, 36)
@@ -108,9 +108,9 @@ def roulette(guess, bet):
         color = "Red"
     if result in [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]:
         color = "Black"
-    if result != 0 and result % 2 = 0:
+    if result != 0 and result % 2 == 0:
         par_impar = "Even"
-    if result % 2 = 1:
+    if result % 2 == 1:
         par_impar = "Odd"
     if result != 0 and result <= 18:
         alto_bajo = "Low"
@@ -129,7 +129,7 @@ def roulette(guess, bet):
     if result > 24 and result <= 36:
         docena = "Dozen 3"
     if result != 0:
-        if result % 3 = 0:
+        if result % 3 == 0:
             calle = "Street " + str(result - 2)
         else:
             calle = "Street " + str(result - (result % 3) + 1)
@@ -137,36 +137,49 @@ def roulette(guess, bet):
         sierpe = "Snake"
     if result not in [1, 5, 9, 12, 14, 16, 19, 23, 27, 30, 32, 34]:
         sierpe = "not Snake"
-    if result = 0:
+    if result == 0:
         print("And the little marble lands in number " + str(result) + "!")
         print("0 is Basket and not Snake.")
-        print()
-    if result > 0 and < 4:
+    if result in range(1, 4):
         print("And the little marble lands in number " + str(result) + "!")
         print(str(result) + " is " + color + ", " + par_impar + ", " + alto_bajo + ", " + columna + ", " + docena + ", " + calle + ", Basket and " + sierpe)
-        print()
-    if result >= 4 and <= 36:
+    if result >= 4 and result <= 36:
         print("And the little marble lands in number " + str(result) + "!")
         print(str(result) + " is " + color + ", " + par_impar + ", " + alto_bajo + ", " + columna + ", " + docena + ", " + calle + ", not Basket and " + sierpe)
-        print()
-# Now, we check the bet, inform the player if it is a winning bet or not, calculate & return the earnings...    
-
-
-
-    if result == guess:
+    # Now, we check the bet, inform the player if it is a winning bet or not, calculate & return the earnings...    
+    if guess == result:
         print("YOU WIN A STRAIGHT BET! YOU WIN " + str(bet * 35) + " DOLLARS!")
         return bet * 35
-    if guess == "Red" and result in [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]:
-        print(str(esult) + " is a red number! You win " + str(bet) + " dollars!")
+    if result == 0:
+        print("Sorry... You loose " + str(bet) + " dollars.")
+        return -bet
+    if guess == color:
+        print(str(result) + " is a " + color + " number! You win " + str(bet) + " dollars!")
         return bet
-    if guess == "Black" and result in [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]:
-        print(str(esult) + " is a black number! You win " + str(bet) + " dollars!")
+    if guess == par_impar:
+        print(str(result) + " is a " + par_impar + " number! You win " + str(bet) + " dollars!")
         return bet
-    if guess == 
-
-
-
-
+    if guess == alto_bajo:
+        print(str(result) + " is a " + alto_bajo + " number! You win " + str(bet) + " dollars!")
+        return bet
+    if guess == columna:
+        print(str(result) + " is a " + columna + " number! You win " + str(bet * 2) + " dollars!")
+        return bet * 2
+    if guess == docena:
+        print(str(result) + " is a " + docena + " number! You win " + str(bet * 2) + " dollars!")
+        return bet * 2
+    if guess == calle:
+        print(str(result) + " is a " + calle + " number! You win " + str(bet * 11) + " dollars!")
+        return bet * 11
+    if guess == sierpe:
+        print(str(result) + " is a " + sierpe + " number! You win " + str(bet * 2) + " dollars!")
+        return bet * 2
+    if guess == "Basket" and result in range(0, 4):
+        print(str(result) + " is a Basket number! You win " + str(bet * 6) + " dollars!")
+        return bet * 6
+    else:
+        print("Sorry... You loose " + str(bet) + " dollars.")
+        return -bet
 
 #Call your game of chance functions here
 
@@ -179,5 +192,6 @@ print()
 money += pick_a_card(20)
 print("Now you have " + str(money) + " dollars.")
 print()
-money += roulette(25, 20)
+money += roulette("Snake", 20)
+print()
 print("You end up with " + str(money) + " dollars.")
