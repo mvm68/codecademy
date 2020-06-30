@@ -150,6 +150,9 @@ def roulette(guess, bet):
     if guess == result:
         print("YOU WIN A STRAIGHT BET! YOU WIN " + str(bet * 35) + " DOLLARS!")
         return bet * 35
+    if guess == "Basket" and result in range(0, 4):
+        print(str(result) + " is a Basket number! You win " + str(bet * 6) + " dollars!")
+        return bet * 6
     if result == 0:
         print("Sorry... You loose " + str(bet) + " dollars.")
         return -bet
@@ -174,9 +177,6 @@ def roulette(guess, bet):
     if guess == sierpe:
         print(str(result) + " is a " + sierpe + " number! You win " + str(bet * 2) + " dollars!")
         return bet * 2
-    if guess == "Basket" and result in range(0, 4):
-        print(str(result) + " is a Basket number! You win " + str(bet * 6) + " dollars!")
-        return bet * 6
     else:
         print("Sorry... You loose " + str(bet) + " dollars.")
         return -bet
@@ -192,6 +192,6 @@ print()
 money += pick_a_card(20)
 print("Now you have " + str(money) + " dollars.")
 print()
-money += roulette("Snake", 20)
+money += roulette("Basket", 20)
 print()
 print("You end up with " + str(money) + " dollars.")
